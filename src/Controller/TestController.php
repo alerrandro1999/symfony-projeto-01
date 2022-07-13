@@ -8,10 +8,23 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TestController extends AbstractController
 {
-    #[Route('/test', name: 'test')]
+   
+    #[Route('/test', name:'test')]
     public function index(): Response
     {
-        return new Response('Pagina de teste');
+        $data['titulo'] = 'Página de teste';
+        $data['mensagem'] = 'Fazendo um teste';
+        $data['frutas'] = [
+            [
+                'nome' => 'banana',
+                'valor' => 123
+            ],
+            [
+                'nome' => 'maça',
+                'valor' => 23
+            ],
+        ];
+        return $this->render('test/index.html.twig', $data);
     }
 
     /**
