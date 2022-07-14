@@ -52,12 +52,12 @@ class Produto
         return $this;
     }
 
-    public function getEntity(): ?Categoria
+    public function getCategoriaId(): ?Categoria
     {
         return $this->Entity;
     }
 
-    public function setEntity(?Categoria $Entity): self
+    public function setCategoriaId(?Categoria $Entity): self
     {
         $this->Entity = $Entity;
 

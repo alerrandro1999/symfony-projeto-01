@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Produto;
+use App\Form\ProdutoType;
 use App\Repository\CategoriaRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,7 +19,7 @@ class ProdutoController extends AbstractController
        $produto = new Produto();
        $produto->setNomeproduto("Notebook");
        $produto->setValor(3000);
-       $produto->setEntity($categoria);
+       $produto->setCategoriaID($categoria);
 
        $msg = "";
 
@@ -30,6 +31,15 @@ class ProdutoController extends AbstractController
         $msg = 'Erro ao cadastrar produto';
       }
       return new Response($msg);
+    }
 
+    #[Route('/produto/adicionar', name: 'produto')]
+    public function adicionar() : Response
+    {
+        $form = $this->createForm(ProdutoType::class);
+        $data['titulo'] = 'Adicionar novo produto';
+        $data['form'] = $form;
+         
+        return $this->renderForm('produto/form.html.twig', $data);
     }
 }

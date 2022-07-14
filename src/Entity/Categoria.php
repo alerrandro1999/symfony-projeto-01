@@ -55,7 +55,7 @@ class Categoria
     {
         if (!$this->produtos->contains($produto)) {
             $this->produtos[] = $produto;
-            $produto->setEntity($this);
+            $produto->setCategoriaId($this);
         }
 
         return $this;
@@ -65,8 +65,8 @@ class Categoria
     {
         if ($this->produtos->removeElement($produto)) {
             // set the owning side to null (unless already changed)
-            if ($produto->getEntity() === $this) {
-                $produto->setEntity(null);
+            if ($produto->getCategoriaId() === $this) {
+                $produto->setCategoriaId(null);
             }
         }
 
