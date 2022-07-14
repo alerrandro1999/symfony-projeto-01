@@ -3,6 +3,7 @@
 {% block title %}{{ titulo }}{% endblock %}
 
 {% block body %}
+<a href="{{path('categoria')}}" class="btn btn-primary">Lista de categorias</a>
 <h1>{{ titulo }}</h1>
 {{form(form)}}
 <p>{{msg}}</p>
