@@ -4,38 +4,41 @@ namespace App\Controller;
 
 use App\Entity\Categoria;
 use App\Form\CategoriaType;
+use App\Repository\CategoriaRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 use Exception;
-
 
 class CategoriaController extends AbstractController
 {
     #[Route('/categoria', name: 'categoria')]
-    public function index(EntityManagerInterface $em): Response
+    public function index(CategoriaRepository $categoriaRepository): Response
     {
-       $categoria = new Categoria();
-       $categoria->setDescricaocategoria("informatica");
-
-      try {
-        $em->persist($categoria);
-        $em->flush();
-        $msg = 'Categoria cadastrada com sucesso';
-      } catch (Exception $e) {
-        $msg = 'Erro ao cadastrada';
-      }
-      return new Response($msg);
+      $data['categorias'] = $categoriaRepository->findAll();
+      $data['titulo'] = 'Gerenciar Categorias';
+      return $this->render('categoria/index.html.twig', $data);
     }
 
-    #[Route('/categoria/adicionar', name: 'categoria')]
-    public function adicionar() : Response
+    #[Route('/categoria/adicionar', name: 'categoriaAdicionar')]
+    public function adicionar(Request $request, EntityManagerInterface $em) : Response
     {
-        $form = $this->createForm(CategoriaType::class);
+        $msg = '';
+        $categoria = new Categoria();
+        $form = $this->createForm(CategoriaType::class, $categoria);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($categoria);
+            $em->flush();
+            $msg = "Categoria adicionar com sucesso";
+        }
+
         $data['titulo'] = 'Adicionar nova categoria';
         $data['form'] = $form;
-         
+        $data['msg'] = $msg;
         return $this->renderForm('categoria/form.html.twig', $data);
     }
 }
