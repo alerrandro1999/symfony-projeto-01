@@ -4,6 +4,8 @@
 
 {% block body %}
 <h1>{{ titulo }}</h1>
+<a href="{{path('produto')}}" class="btn btn-primary">Lista de produtos</a>
+
 <p>{{ msg }}</p>
 {{form(form)}}
 {% endblock %}

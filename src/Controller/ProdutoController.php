@@ -41,7 +41,7 @@ class ProdutoController extends AbstractController
        $data['form'] = $form;
        $data['msg'] = $msg;
 
-       return $this->render('produto/form.html.twig', $data);
+       return $this->renderForm('produto/form.html.twig', $data);
     }
 
     #[Route('/produto/editar/{id}', name: 'produtoEditar')]
@@ -62,7 +62,7 @@ class ProdutoController extends AbstractController
      $data['form'] = $form;
      $data['msg'] = $msg;
 
-     return $this->render('produto/form.html.twig', $data);
+     return $this->renderForm('produto/form.html.twig', $data);
     }
 
     #[Route('/produto/excluir/{id}', name: 'produtoExcluir')]
