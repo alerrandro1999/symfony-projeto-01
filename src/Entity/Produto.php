@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ProdutoRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
@@ -13,10 +14,12 @@ class Produto
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups("api_list")]
     private $id;
 
     #[ORM\Column(type: 'string', length: 50)]
     #[Assert\NotBlank()]
+    #[Groups("api_list")]
     #[Assert\Length(
         min: 5,
         max: 50,
@@ -27,6 +30,7 @@ class Produto
 
     #[ORM\Column(type: 'float')]
     #[Assert\NotBlank()]
+    #[Groups("api_list")]
     #[Assert\Positive(
         message: "O campo valor deve ser positivo"
     )]
@@ -35,6 +39,7 @@ class Produto
 
     #[ORM\ManyToOne(targetEntity: Categoria::class, inversedBy: 'produtos')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups("api_list")]
     private $categoria;
 
     public function getId(): ?int

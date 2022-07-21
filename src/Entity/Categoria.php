@@ -6,6 +6,7 @@ use App\Repository\CategoriaRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CategoriaRepository::class)]
 class Categoria
@@ -13,9 +14,11 @@ class Categoria
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups("api_list")]
     private $id;
 
     #[ORM\Column(type: 'string', length: 50)]
+    #[Groups("api_list")]
     private $descricaocategoria;
 
     #[ORM\OneToMany(mappedBy: 'Entity', targetEntity: Produto::class)]
