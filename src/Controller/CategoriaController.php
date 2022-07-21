@@ -11,18 +11,22 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Exception;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class CategoriaController extends AbstractController
 {
     #[Route('/categoria', name: 'categoria')]
+    #[IsGranted('ROLE_USER')]
     public function index(CategoriaRepository $categoriaRepository): Response
     {
+    //   $this->denyAccessUnlessGranted('ROLE_USER');  
       $data['categorias'] = $categoriaRepository->findAll();
       $data['titulo'] = 'Gerenciar Categorias';
       return $this->render('categoria/index.html.twig', $data);
     }
 
     #[Route('/categoria/adicionar', name: 'categoriaAdicionar')]
+    #[IsGranted('ROLE_USER')]
     public function adicionar(Request $request, EntityManagerInterface $em) : Response
     {
         $msg = '';
@@ -43,6 +47,7 @@ class CategoriaController extends AbstractController
     }
 
     #[Route('/categoria/editar/{id}', name: 'categoriaEditar',)]
+    #[IsGranted('ROLE_USER')]
     public function editar($id, Request $request, EntityManagerInterface $em, CategoriaRepository $categoriaRepository) : Response
     {
         $msg = '';
@@ -63,6 +68,7 @@ class CategoriaController extends AbstractController
     }
 
     #[Route('/categoria/excluir/{id}', name: 'categoriaExcluir',)]
+    #[IsGranted('ROLE_USER')]
     public function excluir($id, EntityManagerInterface $em, CategoriaRepository $categoriaRepository) : Response
     {
         $categoria = $categoriaRepository->find($id);
