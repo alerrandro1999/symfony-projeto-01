@@ -6,6 +6,12 @@
 {% block body %}
 <h1>{{ titulo }}</h1>
 <a href="{{path('produtoAdicionar') }}" class="btn btn-primary">+ Adicionar</a>
+<form method='get'>
+    <label>Pesquisar pelo nome:</label>
+    <input type="text" name="nome" class="form-control" value="{{nomeproduto}}" />
+    <button type="submit" class="btn btn-primary">Pesquisar</button>
+</form>
+
 <table class="table">
     <thead>
         <tr>
